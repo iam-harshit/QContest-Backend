@@ -1,6 +1,7 @@
 package com.crio.qcontest.entities;
 
 import java.util.List;
+import com.crio.qcontest.exception.java.src.main.java.com.crio.qcontest.exceptions.InvalidContestException;
 
 public class Contest {
     private final String title;
@@ -31,6 +32,11 @@ public class Contest {
     // 2) Throw a Runtime Exception with an appropriate message if above condition is not true.
 
     private void validateQuestions(List<Question> questions, Level level) {
+
+        if(questions.stream().filter(t -> t.getLevel().equals(level)).count() < questions.size()){
+            throw new InvalidContestException();
+        }
+
     }
 
     public String getTitle() {
@@ -64,6 +70,8 @@ public class Contest {
     // 1) Mark the status of contest as ended.
 
     public void endContest(){
+        contestStatus=ContestStatus.ENDED;
+
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.crio.qcontest.entities;
 
+import com.crio.qcontest.exception.java.src.main.java.com.crio.qcontest.exceptions.InvalidContestException;
+
 public class User {
     private final String name;
     private Integer totalScore;
@@ -34,6 +36,12 @@ public class User {
     // 2) Throw a Runtime Exception with an appropriate message for invalid score.
 
     public void modifyScore(Integer score){
+
+        if(score<0){
+            throw new InvalidContestException();
+        }
+        totalScore=score;
+
     }
 
     @Override
