@@ -1,7 +1,7 @@
 package com.crio.qcontest.entities;
 
 import java.util.List;
-import com.crio.qcontest.exception.java.src.main.java.com.crio.qcontest.exceptions.InvalidContestException;
+import com.crio.qcontest.exceptions.java.src.main.java.com.crio.qcontest.exceptions.InvalidContestException;
 
 public class Contest {
     private final String title;
