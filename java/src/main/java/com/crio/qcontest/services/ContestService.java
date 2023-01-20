@@ -1,9 +1,12 @@
 package com.crio.qcontest.services;
 
  import java.util.Collections;
+import java.util.Comparator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import com.crio.qcontest.entities.Contest;
@@ -80,7 +83,9 @@ public class ContestService{
     // 2) Get all the questions for a given level.
 
     public List<Contest> getContests(Level level) {
+        
         return (level==null) ? contestRepository.findAll():contestRepository.findAllContestLevelWise(level);
+
     }
 
     // TODO: CRIO_TASK_MODULE_SERVICES
@@ -92,6 +97,7 @@ public class ContestService{
     // 3) Create and store Contestant in the contestantRepository.
 
     public Contestant createContestant(Long contestId, String userName) {
+
         Contest contest = contestRepository.findById(contestId).orElseThrow(() -> new ContestNotFoundException("Contest Not Found"));
 
         User user = userRepository.findByName(userName).orElseThrow(()-> new UserNotFoundException("User Not Found"));
@@ -129,6 +135,7 @@ public class ContestService{
         contestantRepository.delete(contestant);
         return "Contestant with name "+userName+" for contest "+contestId+" deleted!";
     }
+
 
     public List<Contestant> runContest(Long contestId, String createdBy) {
         // Check if contest is valid as per the required conditions.
@@ -183,6 +190,7 @@ public class ContestService{
     // 2) Throw RunTimeException with an appropriate message if the contest was never ran.
 
     public List<Contestant> contestHistory(Long contestId) {
+
         Contest contest = contestRepository.findById(contestId).get();
 
         if(contest.getContestStatus().equals(ContestStatus.NOT_STARTED)){
@@ -194,4 +202,5 @@ public class ContestService{
         return contestants.stream().sorted((o1,o2)-> o2.getCurrentContestPoints() - o1.getCurrentContestPoints()).collect(Collectors.toList());
 
         }
-}
+        
+    }  

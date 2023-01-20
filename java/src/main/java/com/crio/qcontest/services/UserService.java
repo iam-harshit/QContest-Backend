@@ -23,7 +23,7 @@ public class UserService{
     // 1) Create and store user in the repository.
 
     public User createUser(String name) {
-        User user=new User(name,(long) 1);
+        User user=new User(name);
         userRepository.save(user);
         return user;
 
