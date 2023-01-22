@@ -27,9 +27,9 @@ public class UserRepository implements IUserRepository{
     public User save(User user) {
         if(user.getId()==null){
 
-            autoIncrement++;
             User users = new User(user.getName(), autoIncrement);
             userMap.put(users.getId(), users);
+            autoIncrement++;
             return users;
         }
         userMap.put(user.getId(), user);
